@@ -1,11 +1,11 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
-  const backendURL = "http://localhost:5000/api/bookings";
+  const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000"; // Fallback to local URL if not set
 
   if (req.method === "GET") {
     const { date } = req.query;
-    const response = await axios.get(`${backendURL}/slots?date=${date}`);
+    const response = await axios.get(`${backendURL}/api/bookings/slots?date=${date}`);
     res.status(200).json(response.data);
   } else {
     res.setHeader("Allow", ["GET"]);
