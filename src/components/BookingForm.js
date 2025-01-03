@@ -22,7 +22,8 @@ export default function BookingForm({ onBookingComplete }) {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:5000/api/bookings", form);
+      const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";  // Use environment variable for prod URL
+      const response = await axios.post(`${backendURL}/api/bookings`, form);
       onBookingComplete(response.data);
       alert("Booking successful!");
       setForm({
